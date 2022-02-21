@@ -1,7 +1,8 @@
 #!/bin/bash 
 
+#TODO: Have the option to extract specific file types such as word doc with user args
 #TODO: get multiple files working at once rather then running script over and over
-#TODO: have nonconflicting file names in outout folder
+#TODO: have nonconflicting file names when extracting multiple files in outout folder
 	#Have Arg name plus output to show difference? 
 
 #Select file
