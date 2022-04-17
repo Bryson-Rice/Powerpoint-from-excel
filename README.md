@@ -6,4 +6,4 @@ This was originally a bash script that I used while in training for tech support
 
 But I wanted to use that idea as a learning opportunity to improve my python skills. So now there is this fancy python script to slove a super niche problem.
 
-Usage: 'python3 PowerPoint-Extractor.py -f FILE -o OUTPUT-FOLDER'
+Usage: `python3 PowerPoint-Extractor.py -f FILE -o OUTPUT-FOLDER`
