@@ -2,6 +2,7 @@
 
 import argparse
 import shutil
+import random
 import os
 from zipfile import ZipFile
 
@@ -48,18 +49,17 @@ if args.file is None:
     exit()
 
 
-# Get Current Directory
+# Get Current Directory and Output Directory
 
-outputdir = os.getcwd() + "/" + args.output + "/"
+currentdir = os.getcwd() + os.sep
+outputdir = os.getcwd() + os.sep + args.output + os.sep
 
+# Make Output directory
 
-# Make directory
+doesoutputdirexist = False
 
-try:
-    os.mkdir(outputdir)
-except:
-    print(f"A folder with that name already exist, Outputing to {args.output} \n")
-
+if not os.path.exists(args.output):
+    os.mkdir(args.output)
 
 outputfile = rf"{outputdir}{args.file.name}"
 
@@ -72,7 +72,7 @@ if args.file:
 
 # Rename file to zip.zip
 
-newzip = f"{outputdir}zip.zip"
+newzip = f"{currentdir}{random.randint(0,100000)}.zip"
 os.rename(outputfile, newzip)
 
 # Extracts files but keep the full directory
@@ -83,18 +83,24 @@ with ZipFile(newzip, "r") as zipObj:
         if fileName.endswith(".pptx"):
             zipObj.extract(fileName, outputdir)
 
-finaldir = outputdir + "xl/embeddings/"
+finaldir = outputdir + f"xl{os.sep}embeddings{os.sep}"
 
 # Moves file to output folder
 
 extractedfiles = os.listdir(finaldir)
 
 for f in extractedfiles:
-    os.rename(finaldir + f, outputdir + f)
+    try:
+        os.rename(finaldir + f, outputdir + f)
+    except:
+        print(
+            f"There is already a file with the name '{f}', You have either already ran this script or need to change the name of the file\n"
+        )
 
 # Clean up
 
+outputdir = os.getcwd() + os.sep + args.output + os.sep
 shutil.rmtree(outputdir + "xl", ignore_errors=True)
-os.remove(outputdir + "zip.zip")
+os.remove(newzip)
 
-print("Files have have extracted")
+print("Files have have extracted!\n")
